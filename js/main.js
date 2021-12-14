@@ -19,14 +19,39 @@ function setup()
     //drawController.addLine(500, 700, 300, 300, col, 0.5);
 
     //scaling sheet
-     drawController.rect(110, 110, 50, 50, col, 0.1);
-     drawController.rect(110, 110, 50*2, 50*2, col, 0.1);
-     drawController.rect(110, 110, 50*4, 50*4, col, 0.1);
-     drawController.rect(110, 110, 50*8, 50*8, col, 0.1);
-     drawController.rect(110, 110, 50*10, 50*10, col, 0.1);
-     drawController.rect(110, 110, 50*10, 50*26, col, 0.1);
 
-    drawController.ellipse(900, 400, 1600, 700, col, 5);
+    let r = 20;
+
+    drawController.rect(r, r, r*1, r*1, col, 0.1);
+    drawController.rect(r, r, r*2, r*2, col, 0.1);
+    drawController.rect(r, r, r*4, r*4, col, 0.1);
+    drawController.rect(r, r, r*8, r*8, col, 0.1);
+    drawController.rect(r, r, r*10, r*10, col, 0.1);
+    drawController.rect(r, r, r*10, r*26, col, 0.1);
+
+    drawController.ellipse(900, 400, 150*0, 77*9, col, 0.5);
+
+    drawController.ellipse(900, 400, 150*1, 77*9, col, 0.5);
+    drawController.ellipse(900, 400, 150*2, 77*9, col, 0.5);
+    drawController.ellipse(900, 400, 150*3, 77*9, col, 0.5);
+    drawController.ellipse(900, 400, 150*4, 77*9, col, 0.5);
+    drawController.ellipse(900, 400, 150*5, 77*9, col, 0.5);
+    drawController.ellipse(900, 400, 150*6, 77*9, col, 0.5);
+    drawController.ellipse(900, 400, 150*7, 77*9, col, 0.5);
+    drawController.ellipse(900, 400, 150*8, 77*9, col, 0.5);
+    drawController.ellipse(900, 400, 150*9, 77*9, col, 0.5);
+
+    drawController.ellipse(900, 400, 150*9, 77*0, col, 0.5);
+
+    drawController.ellipse(900, 400, 150*9, 77*1, col, 0.5);
+    drawController.ellipse(900, 400, 150*9, 77*2, col, 0.5);
+    drawController.ellipse(900, 400, 150*9, 77*3, col, 0.5);
+    drawController.ellipse(900, 400, 150*9, 77*4, col, 0.5);
+    drawController.ellipse(900, 400, 150*9, 77*5, col, 0.5);
+    drawController.ellipse(900, 400, 150*9, 77*6, col, 0.5);
+    drawController.ellipse(900, 400, 150*9, 77*7, col, 0.5);
+    drawController.ellipse(900, 400, 150*9, 77*8, col, 0.5);
+    drawController.ellipse(900, 400, 150*9, 77*9, col, 0.5);
 
 }
   
