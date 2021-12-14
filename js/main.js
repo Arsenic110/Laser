@@ -19,12 +19,14 @@ function setup()
     //drawController.addLine(500, 700, 300, 300, col, 0.5);
 
     //scaling sheet
-    drawController.rect(110, 110, 50, 50, col, 0.1);
-    drawController.rect(110, 110, 50*2, 50*2, col, 0.1);
-    drawController.rect(110, 110, 50*4, 50*4, col, 0.1);
-    drawController.rect(110, 110, 50*8, 50*8, col, 0.1);
-    drawController.rect(110, 110, 50*10, 50*10, col, 0.1);
-    drawController.rect(110, 110, 50*10, 50*26, col, 0.1);
+     drawController.rect(110, 110, 50, 50, col, 0.1);
+     drawController.rect(110, 110, 50*2, 50*2, col, 0.1);
+     drawController.rect(110, 110, 50*4, 50*4, col, 0.1);
+     drawController.rect(110, 110, 50*8, 50*8, col, 0.1);
+     drawController.rect(110, 110, 50*10, 50*10, col, 0.1);
+     drawController.rect(110, 110, 50*10, 50*26, col, 0.1);
+
+    drawController.ellipse(900, 400, 1600, 700, col, 5);
 
 }
   
@@ -35,13 +37,18 @@ function draw()
 
 
     noFill();
-    ellipse(100, 200, 200, 100);
-    arc(800, 200, 100, 300, -1.57, 5 / (t % 1));
+    //ellipse(100, 200, 200, 100);
+    //arc(800, 200, 100, 300, -1.57, 4.71);
 
 }
 
 function tick()
 {
+    //pause execution
+    if(keyCode === 32)    
+        return;
+
+
     //clear buffer
     background(10);
 
