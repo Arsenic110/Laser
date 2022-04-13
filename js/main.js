@@ -14,10 +14,23 @@ function setup()
 
     drawController = new DrawingController();
 
-    drawController.tri(createVector(300, 300), createVector(440, 310), createVector(490, 200), col, 2);
+    //drawController.tri(createVector(300, 300), createVector(440, 310), createVector(490, 200), col, 0);
     //presentation(t);
 
-    drawController.ellipse(900, 400, 150*2, 77*9, col, 5);
+    //drawController.ellipse(900, 400, 150*2, 77*9, col, 0);
+
+
+
+
+    //drawController.curve(1200, 450, 220, 220, {a:0, b:0.5}, col, 0.1);
+
+    drawController.wave(900, 200, 20, 20, {a:0.16, b:0.34}, 50, 25, col, 0);
+
+    drawController.wave(1100, 400, 20, 20, {a:0.5, b:0.66}, 50, 25, new Color(213, 75, 63), 0);
+    
+    drawController.wave(700, 400, 20, 20, {a:0.84, b:1}, 50, 25, new Color(61, 148, 239), 0);
+
+    presentation();
 
 
 }
@@ -31,6 +44,8 @@ function presentation()
     drawController.rect(r, r, r*8, r*8, col, 0.1);
     drawController.rect(r, r, r*10, r*10, col, 0.1);
     drawController.rect(r, r, r*10, r*26, col, 0.1);
+
+    col = new Color(255, 255, 255);
 
     drawController.ellipse(900, 400, 150*0, 77*9, col, 0.5);
 
@@ -57,7 +72,7 @@ function presentation()
     drawController.ellipse(900, 400, 150*9, 77*9, col, 0.5);
 
 }
-  
+
 function draw() 
 {
     //manual ticker (cuz im dumb)

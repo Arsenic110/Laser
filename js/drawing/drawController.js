@@ -81,7 +81,7 @@ class Line
 
 class Ellipse
 {
-    constructor(x, y, w, h, color, lim)
+    constructor(x, y, w, h, color, lim, p)
     {
         this.x = x;
         this.y = y;
@@ -92,6 +92,9 @@ class Ellipse
         this.drawing = false;
         this.finished = false;
         this.lim = lim;
+
+        if(p)
+            this.p = p;
     }
 
     restart()
@@ -124,8 +127,15 @@ class Ellipse
 
     drawLogic(t)
     {
-        if(t >= this.lim + this.tInit || this.theta > 6.28)
+        let ll = 6.28;
+        if(this.p)
+        {
+            ll = this.p.b * 6.28;
+
+        }
+        if(t >= this.lim + this.tInit || this.theta > ll)
         {   
+            this.theta = ll;
             this.finished = true;
             this.drawFull();
             return;
@@ -135,18 +145,26 @@ class Ellipse
 
         this.theta = 6.28 * ((t - this.tInit) / this.lim);
 
+        if(this.theta > ll)
+            this.theta = ll;
+
         stroke(this.color.r, this.color.g, this.color.b);
 
         noFill();
 
-        arc(this.x, this.y, this.w, this.h, 0, this.theta);
+        if(this.p)
+        {
+            if(this.theta >= this.p.a * 6.28)
+                arc(this.x, this.y, this.w, this.h, this.p.a * 6.28, this.theta);
+        }
+        else
+            arc(this.x, this.y, this.w, this.h, 0, this.theta);
 
-        var bruh = this.getPoint(this.x, this.y, this.r)
+        //var bruh = this.getPoint(this.x, this.y, this.r)
 
-        circle(this.x + this.w / 2, this.y, 15);
+        //circle(this.x + this.w / 2, this.y, 15);
 
         fill(255, 255, 255);
-        console.log(`Init: ${this.tInit}, Lim: ${this.lim + this.tInit}, Theta: (${t} - ${this.tInit} / ${this.lim}) = ${this.theta / 6.28}`);
         //console.log(this.theta)
     }
 
@@ -157,8 +175,15 @@ class Ellipse
 
     drawFull()
     {
+
         stroke(this.color.r, this.color.g, this.color.b);
         noFill();
+        //we are only drawing the arc
+        if(this.p)
+        {
+            arc(this.x, this.y, this.w, this.h, this.p.a * 6.28, this.p.b * 6.28);
+            return;
+        }
         ellipse(this.x, this.y, this.w, this.h);
     }
 }
@@ -193,6 +218,20 @@ class DrawingController
     ellipse(x, y, w, h, color, lim)
     {
         this.roster.push(new Ellipse(x, y, w, h, color, lim));
+    }
+
+    curve(x, y, w, h, p, color, lim)
+    {
+        this.roster.push(new Ellipse(x, y, w, h, color, lim * p.b, p));
+    }
+
+    wave(x, y, w, h, p, i, s, color, lim)
+    {
+        for(let j  = 0; j < i; j++)
+        {
+            this.roster.push(new Ellipse(x, y, w + (j * s), h + (j * s), color, lim * p.b, p));
+        }
+
     }
 
     draw(t)
