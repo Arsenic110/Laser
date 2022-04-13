@@ -59,6 +59,7 @@ class Line
         {
             n = 0;
             this.finished = true;
+            this.drawFull();
             return;
         }
 
@@ -112,46 +113,46 @@ class Ellipse
     drawInit(t)
     {
         this.tInit = t;
+
+        console.log("Init time: "+ t);
         this.drawing = true;
 
         this.theta = 0;
 
-        //this.drawLogic(t);
+        this.drawLogic(t);
     }
 
     drawLogic(t)
     {
-        //our two bounds: tInit, tInit + lim
-
-        //formula for converting t from scale a -> b to x -> y is:
-        //assuming x < y and a < b
-
-        //n = (y - x) * (t / (b - a))
-
-        let a = this.tInit;
-        let b = this.tInit + this.lim;
-
-        a -= b;
-    
-        //little bit of logic bounding (?)
-        if(true)
-        if(this.theta > 4.71)
+        if(t >= this.lim + this.tInit || this.theta > 6.28)
         {   
             this.finished = true;
+            this.drawFull();
             return;
         }
 
-        this.theta = (4.71 + 1.57) * (t / (b - a))
+
+
+        this.theta = 6.28 * ((t - this.tInit) / this.lim);
 
         stroke(this.color.r, this.color.g, this.color.b);
-        //line(this.x1, this.y1, this.generatedX, this.generatedY);
+
         noFill();
 
-        arc(this.x, this.y, this.w, this.h, -1.57, this.theta);
+        arc(this.x, this.y, this.w, this.h, 0, this.theta);
+
+        var bruh = this.getPoint(this.x, this.y, this.r)
+
+        circle(this.x + this.w / 2, this.y, 15);
 
         fill(255, 255, 255);
-        text(this.theta, 60, 30);
-        console.log(this.theta)
+        console.log(`Init: ${this.tInit}, Lim: ${this.lim + this.tInit}, Theta: (${t} - ${this.tInit} / ${this.lim}) = ${this.theta / 6.28}`);
+        //console.log(this.theta)
+    }
+
+    getPoint(x, y, r, rad)
+    {
+        return createVector(x + Math.cos(rad) * r, y + Math.sin(rad) *r);
     }
 
     drawFull()
@@ -176,10 +177,17 @@ class DrawingController
 
     rect(x1, y1, l, w, color, lim)
     {
-        this.roster.push(new Line(x1, y1, x1 + w, y1, color, lim));
-        this.roster.push(new Line(x1 + w, y1, x1 + w, y1 + l, color, lim));
-        this.roster.push(new Line(x1 + w, y1 + l, x1, y1 + l, color, lim));
-        this.roster.push(new Line(x1, y1 + l, x1, y1, color, lim));
+        this.roster.push(new Line(x1, y1, x1 + w, y1, color, lim / 4));
+        this.roster.push(new Line(x1 + w, y1, x1 + w, y1 + l, color, lim / 4));
+        this.roster.push(new Line(x1 + w, y1 + l, x1, y1 + l, color, lim / 4));
+        this.roster.push(new Line(x1, y1 + l, x1, y1, color, lim / 4));
+    }
+
+    tri(v1, v2, v3, color, lim)
+    {
+        this.roster.push(new Line(v1.x, v1.y, v2.x, v2.y, color, lim / 3));
+        this.roster.push(new Line(v2.x, v2.y, v3.x, v3.y, color, lim / 3));
+        this.roster.push(new Line(v3.x, v3.y, v1.x, v1.y, color, lim / 3));
     }
 
     ellipse(x, y, w, h, color, lim)
@@ -191,10 +199,13 @@ class DrawingController
     {
         for(var i = 0; i < this.roster.length; i++)
         {
-            this.roster[i].draw(t);
-
-            if(!this.roster[i].finished)
-                break;
+            if(this.roster[i].finished == false)
+            {
+                this.roster[i].draw(t);
+                return;
+            }
+            else
+                this.roster[i].draw(t);
         }
     }
 

@@ -14,14 +14,17 @@ function setup()
 
     drawController = new DrawingController();
 
-    //drawController.addLine(50, 150, 1000, 100, col, 0.5);
-    //drawController.addLine(1000, 100, 500, 700, col, 0.5);
-    //drawController.addLine(500, 700, 300, 300, col, 0.5);
+    drawController.tri(createVector(300, 300), createVector(440, 310), createVector(490, 200), col, 2);
+    //presentation(t);
 
-    //scaling sheet
+    drawController.ellipse(900, 400, 150*2, 77*9, col, 5);
 
+
+}
+
+function presentation()
+{
     let r = 20;
-
     drawController.rect(r, r, r*1, r*1, col, 0.1);
     drawController.rect(r, r, r*2, r*2, col, 0.1);
     drawController.rect(r, r, r*4, r*4, col, 0.1);
